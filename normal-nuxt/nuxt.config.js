@@ -48,7 +48,6 @@ export default {
   build: {
   },
   generate:{
-    interval: 100,
     async routes(){
       const posts = (await axios.get('https://qiita.com/api/v2/items?page=1&per_page=100',
         {
