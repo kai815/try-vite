@@ -1,18 +1,24 @@
 <template>
 <div>
-  {{payload}}
-  <Tutorial/>
+  {{post.title}}
 </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  async asyncData({payload}){
-    console.log(payload);
-    return { payload:payload}
-  },
-  mounted(){
-    console.log(this.payload)
+  async asyncData({app,params}){
+    return await axios.get(`https://qiita.com/api/v2/items/${params.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${app.$config.token}`,
+        }
+      }
+    ).then(response=>{
+      return {
+        post: response.data
+      }
+    })
   }
 }
 </script>

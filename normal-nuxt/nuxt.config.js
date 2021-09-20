@@ -2,11 +2,15 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  privateRuntimeConfig: {
+    token: process.env.TOKEN,
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'normal-nuxt',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
@@ -26,13 +30,6 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
   ],
-  generate: {
-    routes() {
-      return [
-        {route:'/post/test',payload:{test:"test"}}
-      ]
-    }
-  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
