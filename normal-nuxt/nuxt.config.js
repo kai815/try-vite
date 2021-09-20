@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -47,5 +49,28 @@ export default {
   },
   generate:{
     interval: 100,
+    async routes(){
+      const posts = (await axios.get('https://qiita.com/api/v2/items?page=1&per_page=100',
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.TOKEN}`,
+          }
+        })
+      ).data
+
+      const postRoutes = posts.map(post=>{
+        return{
+          route:`/post/${post.id}`,
+          payload:post
+        }
+      })
+      return [
+        {
+          route:"/post",
+          payload: posts
+        },
+        ...postRoutes
+      ]
+    }
   }
 }

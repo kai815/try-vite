@@ -14,19 +14,16 @@
 <script>
 import axios from 'axios';
 export default {
-  async asyncData({app}) {
-    return await axios.get('https://qiita.com/api/v2/items?page=1&per_page=100',
-      {
-        headers: {
-          Authorization: `Bearer ${app.$config.token}`,
+  async asyncData({ app, payload }) {
+    const posts = payload !== undefined ? payload 
+      : (await axios.get('https://qiita.com/api/v2/items?page=1&per_page=100',
+        {
+          headers: {
+            Authorization: `Bearer ${app.$config.token}`,
+          }
         }
-      }
-    )
-    .then(response => {
-      return {
-        posts: response.data
-      }
-    })
-  },
+        )).data
+    return { posts }
+  }
 }
 </script>
